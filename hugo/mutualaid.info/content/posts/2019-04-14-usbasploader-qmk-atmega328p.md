@@ -5,11 +5,11 @@ draft: false
 
 This is a super high level (and probably incomplete in some places) guide and list of resources related to using a Raspberry Pi's GPIO pins to flash USBaspLoader onto an ATmega328P microcontroller unit (MCU) and flashing QMK onto it over USB. I wrote it up after learning a bit about circuit design and MCU programming, and I hope it's helpful as a resource to others.
 
-# Software prerequisites
+## Software prerequisites
 
 You need to have avrdude and avr-gcc installed on a Raspberry Pi.
 
-# Flashing USBaspLoader
+## Flashing USBaspLoader
 
 These two sites were very helpful in wiring up the ATmega328P to the GPIO pins on the Raspberry Pi:
 
@@ -68,7 +68,7 @@ avrdude -c usbasp -p m328p -v
 
 If this doesn't work, something is probably wrong with your wiring or the fuses, or the bootloader didn't flash correctly.
 
-# Flashing QMK
+## Flashing QMK
 
 I don't have in-depth instructions for this, but the [QMK hand-wiring guide](https://docs.qmk.fm/#/hand_wire) is helpful. [All of the changes mentioned are in this commit](https://github.com/brianmutualaid/qmk_firmware/commit/f95689318fb97fdd4c6400d2c89bdd4ccfceae79).
 
@@ -95,7 +95,7 @@ Compile and flash from the QMK repo directory:
 make handwired2x2:default:program
 ```
 
-# Resources
+## Resources
 
 * [ATmega328P datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf)
 * [USBaspLoader](https://github.com/baerwolf/USBaspLoader)
