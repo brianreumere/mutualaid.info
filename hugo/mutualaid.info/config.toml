@@ -2,6 +2,7 @@ baseURL = "https://mutualaid.info"
 languageCode = "en-us"
 title = "mutualaid.info"
 theme = "plague"
+defaultContentLanguage = "en"
 
 [frontmatter]
   date = [':filename', ':default']
