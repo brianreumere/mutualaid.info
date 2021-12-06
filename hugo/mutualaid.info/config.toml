@@ -17,7 +17,7 @@ Hosted on [OpenBSD](https://www.openbsd.org/) 🐡 by [CR Servers](https://www.c
 
   emailAddress = "brian@mutualaid.info"
   twitterHandle = "brianreumere"
-  gitlabUsername = "brianreumere"
+  gitHubUsername = "brianreumere"
 
   [params.indieWeb]
     emailAddress = "brian@mutualaid.info"
