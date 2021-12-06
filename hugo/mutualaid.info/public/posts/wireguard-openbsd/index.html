@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <title>
+        mutualaid.info
+    </title>
+    <link rel="me" href="mailto:brian@mutualaid.info">
+    <link rel="me" href="https://github.com/brianreumere">
+    <link rel="me" href="https://twitter.com/brianreumere">
+    
+    <link rel="stylesheet" href=https://mutualaid.info/css/style.css>
+</head><body>
+        <header><a class="site-header" href="https://mutualaid.info">mutualaid.info</a></div>
+<nav class="site-nav">
+    
+    
+    <a class="nav-item active" href="/posts/" title="posts">posts</a>
+    
+    <a class="nav-item" href="/contact/" title="contact">contact</a>
+    
+</nav></header>
+        <main class="content">
+<h1 class="post-title">Using OpenBSD&#39;s in-kernel WireGuard support to route some local hosts over a VPN</h1>
+<p class="post-date">
+    <span class="post-date">January 4, 2021</span><br>
+</p>
+<p>This post is a follow-up to <a href="/posts/wireguard-go-openbsd">Routing some local hosts over a WireGuard VPN on an OpenBSD router</a>, which detailed how to use the <a href="https://git.zx2c4.com/wireguard-go/about/">userland implementation of WireGaurd, <code>wireguard-go</code></a>, on OpenBSD to route a specific local host or subnet over a WireGuard VPN. I&rsquo;ve finally upgraded to OpenBSD 6.8, so this post will cover how to use the new in-kernel WireGuard support from the <code>wg(4)</code> driver to accomplish the same goal.</p>
+<p>These man pages were helpful:</p>
+<ul>
+<li><a href="https://man.openbsd.org/OpenBSD-6.8/wg"><code>wg(4)</code></a></li>
+<li><a href="https://man.openbsd.org/OpenBSD-6.8/ifconfig"><code>ifconfig(8)</code></a></li>
+<li><a href="https://man.openbsd.org/OpenBSD-6.8/pf.conf"><code>pf.conf(5)</code></a></li>
+<li><a href="https://man.openbsd.org/OpenBSD-6.8/rdomain"><code>rdomain(4)</code></a></li>
+</ul>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>You&rsquo;ll need a WireGuard keypair (public and private keys) for your OpenBSD router and a WireGuard public key from your VPN provider. You can generate your own private key and upload the public key to your VPN provider, or let them generate everything for you (for example, <a href="https://mullvad.net/en/download/wireguard-config/">Mullvad has a page to generate a configuration file</a> that generates everything for you and also gives you the ability to upload a key).</p>
+<p>You also of course need an OpenBSD router with PF. I tested these steps on OpenBSD 6.8.</p>
+<h1 id="configure-the-wireguard-interface">Configure the WireGuard interface</h1>
+<p>Create a new file called <code>/etc/hostname.wg2</code>, or <code>wg0</code>, <code>wg1</code>, etc. I&rsquo;ll use <code>wg2</code> for the rest of this post. Populate it with the following content, making the following replacements:</p>
+<ul>
+<li>Replace <code>&lt;rdomain&gt;</code> with the number of the routing domain you want to put the <code>wg</code> interface in (I use <code>2</code> to match the interface number)</li>
+<li>Replace <code>&lt;private_key&gt;</code> with your WireGuard private key</li>
+<li>Replace <code>&lt;public_key&gt;</code> with the public key of your WireGuard peer</li>
+<li>Replace <code>&lt;endpoint&gt;</code> with the IP address of your peer and <code>&lt;port&gt;</code> with the peer&rsquo;s listening port</li>
+<li>Replace <code>&lt;local_ip&gt;</code> with the IP address of your <code>wg</code> interface (from the <code>Address</code> line in a Mullvad configuration file)</li>
+</ul>
+<pre tabindex="0"><code>description &quot;WireGuard&quot;
+rdomain &lt;rdomain&gt;
+wgkey &lt;private_key&gt;
+wgpeer &lt;public_key&gt; wgendpoint &lt;endpoint_ip&gt; &lt;port&gt; wgaip 0.0.0.0/0
+inet &lt;local_ip&gt; 255.255.255.255
+!route -T 2 -n add -inet default -iface &lt;local_ip&gt;
+!route -T 2 -n add &lt;endpoint_ip&gt; -gateway $(route -T 0 -n get default | grep gateway | awk '{print $2}')
+</code></pre><p>If you want to restrict what source IP addresses traffic from your peer is allowed to have, you can optionally change the <code>0.0.0.0/0</code> value. If your local WireGuard IP address has a different subnet value, you should change the <code>255.255.255.255</code> netmask accordingly.</p>
+<p>The <code>route -T 0 -n get default</code> command ensures that traffic to the WireGuard VPN peer is not routed over the VPN. The <code>grep</code> and <code>awk</code> commands extract your default route table&rsquo;s default gateway IP address and the full command adds a route to the WireGuard endpoint or peer IP via that default gateway.</p>
+<p>Save the file and then set the proper permissions and bring up the new interface:</p>
+<pre tabindex="0"><code>chmod 640 /etc/hostname.wg2
+chown root:wheel /etc/hostname.wg2
+sh /etc/netstart wg2
+</code></pre><p>You should now be able to see some information about the interface and statistics about VPN traffic by running <code>ifconfig wg2</code>.</p>
+<h1 id="configure-pf">Configure PF</h1>
+<p>These PF rules will match any incoming traffic from a local device with IP address <code>10.0.0.100</code>, route that traffic using the routing table associated with the alternate rdomain you created, and NAT the traffic to the IP address of your <code>wg</code> interface. This assumes you already have a PF macro called <code>int_if</code> that defines the interface that the traffic from the local device will be entering on. Add these lines to your <code>/etc/pf.conf</code> file:</p>
+<pre tabindex="0"><code>match in on $int_if inet from 10.0.0.100 to any rtable 2
+match out on wg2 inet from !(wg2:network) to any nat-to (wg2:0)
+</code></pre><p>You can also route all the traffic on an interface (a physical or VLAN interface) over the WireGuard VPN. For example, if you want to route all traffic in VLAN 200 over the VPN, the first <code>match</code> rule would be:</p>
+<pre tabindex="0"><code>match in on vlan200 from vlan200:network to any rtable 2
+</code></pre><p>Save your changes and reload the ruleset to apply them:</p>
+<pre tabindex="0"><code>pfctl -f /etc/pf.conf
+</code></pre><p>Any local devices, interfaces, or subnets you matched with your PF rules should have all of their traffic routed over the WireGuard VPN now. You can <a href="https://dnsleaktest.com">check for DNS leaks and confirm your external IP address with dnsleaktest.com</a>.</p>
+<h1 id="dns">DNS</h1>
+<p>Mullvad has a handy function where they <a href="https://mullvad.net/en/help/terms-service/">hijack all DNS traffic and route it to a Mullvad DNS server</a>, but your VPN provider may not do this for you. For good measure (or if you&rsquo;re not using Mullvad or another VPN provider that does this for you) you should do something like manually set the DNS server on your local device, or configure your DHCP server with the desired DNS server address for your local subnet. For example, if your OpenBSD router is your DHCP server and you want to configure Mullvad&rsquo;s DNS server for the entire 10.0.0.0/24 subnet, include something like this in <code>/etc/dhcpd.conf</code>:</p>
+<pre tabindex="0"><code>subnet 10.0.0.0 netmask 255.255.255.0 {
+    option routers 10.0.0.1;
+    option domain-name-servers 193.138.218.74;
+    range 10.0.1.100 10.0.1.199;
+}
+</code></pre><p><a href="https://mullvad.net/en/help/dns-leaks/">The Mullvad DNS server address is available here</a>.</p>
+<p><a href="https://support.mozilla.org/en-US/kb/dns-over-https-doh-faqs#w_will-users-be-able-to-disable-doh">If you use Firefox you may also want to disable DNS over HTTPS (DoH)</a>.</p>
+<h1 id="thats-it">That&rsquo;s it!</h1>
+<p>Thanks for reading.</p>
+<h1 id="bonus">Bonus</h1>
+<p>Here&rsquo;s a kind of gross script I quickly wrote to convert a Mullvad configuration file into <code>hostname.if</code> format. The first argument should be the path to the Mullvad configuration file and the second argument should be the routing domain number you plan to use.</p>
+<pre tabindex="0"><code>#!/bin/sh
+
+if [ -z &quot;$1&quot; -o -z &quot;$2&quot; ]; then
+    printf &quot;First argument should be a Mullvad config file and second argument a routing domain number.\\n&quot;
+    exit 1
+fi
+
+rdomain=&quot;$2&quot;
+wgkey=$(cat &quot;$1&quot; | grep PrivateKey | awk '{print $3}')
+wgpeer=$(cat &quot;$1&quot; | grep PublicKey | awk '{print $3}')
+wgendpoint=$(cat &quot;$1&quot; | grep Endpoint | awk '{print $3}' | sed 's/:/ /')
+wgaip=$(cat &quot;$1&quot; | grep AllowedIPs | awk '{print $3}')
+inet=$(cat &quot;$1&quot; | grep Address | awk '{print $3}')
+
+printf \
+&quot;description \&quot;WireGuard\&quot;\\n\
+rdomain ${rdomain}\\n\
+wgkey ${wgkey}\\n\
+wgpeer ${wgpeer} wgendpoint ${wgendpoint} wgaip ${wgaip}\\n\
+inet ${inet}\\n\
+!route -T ${rdomain} -n add -inet default -iface $(echo &quot;$inet&quot; | cut -d '/' -f 1)\\n\
+!route -T ${rdomain} -n add $(echo &quot;$wgendpoint&quot; | cut -d ' ' -f 1) -gateway \$(route -T 0 -n get default | grep gateway | awk '{print \$2}')\\n&quot;
+</code></pre><p>If you save it as <code>mullvad.sh</code> and make it executable, you can run it with a command like:</p>
+<pre tabindex="0"><code>./mullvad.sh mlvd.conf 2 &gt; /etc/hostname.wg2
+</code></pre>
+
+        </main>
+        <footer><p>Powered by <a href="https://gohugo.io/">Hugo</a> and the <a href="https://github.com/brianreumere/plague">plague</a> theme.<br>
+Hosted on <a href="https://www.openbsd.org/">OpenBSD</a> 🐡 by <a href="https://www.crservers.com/green-hosting.html">CR Servers</a> 🌱.</p>
+<p>🏴</p>
+</footer>
+    </body>
+</html>

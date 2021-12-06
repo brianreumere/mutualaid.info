@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <title>
+        mutualaid.info
+    </title>
+    <link rel="me" href="mailto:brian@mutualaid.info">
+    <link rel="me" href="https://github.com/brianreumere">
+    <link rel="me" href="https://twitter.com/brianreumere">
+    
+    <link rel="stylesheet" href=https://mutualaid.info/css/style.css>
+</head><body>
+        <header><a class="site-header" href="https://mutualaid.info">mutualaid.info</a></div>
+<nav class="site-nav">
+    
+    
+    <a class="nav-item active" href="/posts/" title="posts">posts</a>
+    
+    <a class="nav-item" href="/contact/" title="contact">contact</a>
+    
+</nav></header>
+        <main class="content">
+<h1 class="post-title">Flashing USBaspLoader and QMK to an ATmega328P</h1>
+<p class="post-date">
+    <span class="post-date">April 14, 2019</span><br>
+</p>
+<p>This is a super high level (and probably incomplete in some places) guide and list of resources related to using a Raspberry Pi&rsquo;s GPIO pins to flash USBaspLoader onto an ATmega328P microcontroller unit (MCU) and flashing QMK onto it over USB. I wrote it up after learning a bit about circuit design and MCU programming, and I hope it&rsquo;s helpful as a resource to others.</p>
+<h1 id="software-prerequisites">Software prerequisites</h1>
+<p>You need to have avrdude and avr-gcc installed on a Raspberry Pi.</p>
+<h1 id="flashing-usbasploader">Flashing USBaspLoader</h1>
+<p>These two sites were very helpful in wiring up the ATmega328P to the GPIO pins on the Raspberry Pi:</p>
+<ul>
+<li><a href="http://ozzmaker.com/program-avr-using-raspberry-pi-gpio/">How to Program an AVR/Arduino using the Raspberry Pi GPIO</a></li>
+<li><a href="https://learn.adafruit.com/program-an-avr-or-arduino-using-raspberry-pi-gpio-pins/configuration">Program an AVR or Arduino Using Raspberry Pi GPIO</a></li>
+</ul>
+<p>The pin numbers in <code>avrdude.conf</code> are the GPIO numbers, <strong>not</strong> the physical pin numbers (<a href="https://www.jameco.com/Jameco/workshop/circuitnotes/raspberry-pi-circuit-note.html">so with the pinout diagram here you use the gp* numbers in <code>avrdude.conf</code>, not the numbers on the pins themselves</a>).</p>
+<p>Once everything is hooked up, make sure avrdude can see the MCU. This is assuming you named your custom programmer in <code>avrdude.conf</code> &ldquo;pi&rdquo;.</p>
+<pre tabindex="0"><code>avrdude -c pi -p m328p -v
+</code></pre><p>Assuming that was successful, we can erase the MCU to start fresh:</p>
+<pre tabindex="0"><code>avrdude -c pi -p m328p -v -e
+</code></pre><p>You need to set various fuses on the MCU. <a href="https://medium.com/@MasonWallerQVJ/setting-up-an-external-crystal-clock-source-with-fuse-bits-for-avr-atmega-microcontrollers-31b2e79ae09a">This is a super helpful beginner-level tutorial</a></p>
+<p>We&rsquo;ll set fuses for a 16 MHz crystal oscillator, unprogram CKDIV8 (divide clock speed by 8), disable brown-out detection, and probably some other things I&rsquo;m forgetting about:</p>
+<pre tabindex="0"><code>sudo avrdude -c pi -p m328p -v -u -U lfuse:w:0xFF:m
+sudo avrdude -c pi -p m328p -v -u -U hfuse:w:0xD8:m
+sudo avrdude -c pi -p m328p -v -u -U efuse:w:0xFF:m
+</code></pre><p><a href="https://github.com/baerwolf/USBaspLoader">Download USBaspLoader here</a>.</p>
+<p>In <code>Makefile.inc</code> set:</p>
+<pre tabindex="0"><code>F_CPU = 16000000
+DEVICE = atmega328p
+FLASHADDRESS = 0x7000
+</code></pre><p>Compile and flash USBaspLoader:</p>
+<pre tabindex="0"><code>make clean
+make firmware
+sudo make flash
+</code></pre><p>Physically transfer the ATmega328P to another breadboard that&rsquo;s wired similar to <a href="https://github.com/obdev/v-usb/tree/master/circuits">the <code>with-zener</code> schematic from the V-USB repo</a> (you can open this with an older free version of EAGLE; version 6.6.0 on macOS works) or the <a href="https://github.com/hsgw/plaid/tree/master/pcb">schematic for the plaid keyboard</a> (you can open this with KiCad).</p>
+<p>To test that the bootloader is working, hold down the switch that&rsquo;s wired to the <code>JUMPER_BIT</code> defined in USBaspLoader&rsquo;s <code>bootloaderconfig.h</code>, press the switch that&rsquo;s wired to the reset pin (pin 1 or PC6), release the reset switch, and then reset the jumper switch. This should boot the MCU into the bootloader that you just flashed, and you should be able to see the chip with avrdude:</p>
+<pre tabindex="0"><code>avrdude -c usbasp -p m328p -v
+</code></pre><p>If this doesn&rsquo;t work, something is probably wrong with your wiring or the fuses, or the bootloader didn&rsquo;t flash correctly.</p>
+<h1 id="flashing-qmk">Flashing QMK</h1>
+<p>I don&rsquo;t have in-depth instructions for this, but the <a href="https://docs.qmk.fm/#/hand_wire">QMK hand-wiring guide</a> is helpful. <a href="https://github.com/brianmutualaid/qmk_firmware/commit/f95689318fb97fdd4c6400d2c89bdd4ccfceae79">All of the changes mentioned are in this commit</a>.</p>
+<p><a href="https://github.com/qmk/qmk_firmware">Clone the QMK repo here</a>. Define the matrix rows and columns. Comment out soft serial pin. Add your layout to <code>handwired2x2.h</code>. Edit <code>rules.mk</code>:</p>
+<pre tabindex="0"><code>MCU = atmega328p
+ARCH = AVR
+</code></pre><p>Comment out <code>BOOTLOADER</code>.</p>
+<p>Add:</p>
+<pre tabindex="0"><code>PROGRAM_CMD = avrdude -c usbasp -p m328p -v -U flash:w:$(BUILD_DIR)/$(TARGET).hex
+</code></pre><p>Set <code>BOOTLOADER_SIZE</code> to <code>2048</code>.</p>
+<p>Compile and flash from the QMK repo directory:</p>
+<pre tabindex="0"><code>make handwired2x2:default:program
+</code></pre><h1 id="resources">Resources</h1>
+<ul>
+<li><a href="http://ww1.microchip.com/downloads/en/DeviceDoc/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061A.pdf">ATmega328P datasheet</a></li>
+<li><a href="https://github.com/baerwolf/USBaspLoader">USBaspLoader</a></li>
+<li><a href="https://www.nongnu.org/avrdude/">avrdude</a></li>
+<li><a href="https://docs.qmk.fm/#/hand_wire">QMK hand-wiring guide</a></li>
+</ul>
+
+
+        </main>
+        <footer><p>Powered by <a href="https://gohugo.io/">Hugo</a> and the <a href="https://github.com/brianreumere/plague">plague</a> theme.<br>
+Hosted on <a href="https://www.openbsd.org/">OpenBSD</a> 🐡 by <a href="https://www.crservers.com/green-hosting.html">CR Servers</a> 🌱.</p>
+<p>🏴</p>
+</footer>
+    </body>
+</html>
