@@ -1,0 +1,8 @@
+---
+- hosts: www
+  become: yes
+  vars:
+    www_dns_zone: mutualaid.info
+    admin_email_address: brian@mutualaid.info
+  roles:
+    - hugo

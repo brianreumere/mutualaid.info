@@ -1,0 +1,26 @@
+baseURL = "https://mutualaid.info"
+languageCode = "en-us"
+title = "mutualaid.info"
+theme = "plague"
+
+[frontmatter]
+  date = [':filename', ':default']
+
+[params]
+  siteHeaderText = "mutualaid.info"
+
+  footerContent = """\
+Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme.  
+Hosted on [OpenBSD](https://www.openbsd.org/) 🐡 by [CR Servers](https://www.crservers.com/green-hosting.html) 🌱.
+
+🏴"""
+
+  emailAddress = "brian@mutualaid.info"
+  twitterHandle = "brianreumere"
+  gitlabUsername = "brianreumere"
+
+  [params.indieWeb]
+    emailAddress = "brian@mutualaid.info"
+    gitHubUsername = "brianreumere"
+    twitterUser = "brianreumere"
+    country = "US"
