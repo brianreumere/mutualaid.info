@@ -1,0 +1,53 @@
+- name: Set hostname
+  hostname:
+    name: www.{{ www_dns_zone }}
+    use: openbsd
+
+- name: Copy dhclient.conf
+  copy:
+    src: dhclient.conf
+    dest: /etc/dhclient.conf
+    owner: root
+    group: wheel
+    mode: 0644
+
+- name: Schedule syspatch cron job
+  cron:
+    user: root
+    minute: 20
+    hour: 4
+    name: syspatch
+    job: /usr/sbin/syspatch
+
+- name: Install certbot
+  package:
+    name: certbot
+    state: present
+
+- name: Issue certificate
+  shell: /usr/local/bin/certbot certonly -d {{ www_dns_zone }} -d www.{{ www_dns_zone }} --standalone --non-interactive --agree-tos -m {{ admin_email_address }}
+  args:
+    creates: /etc/letsencrypt/live/{{ www_dns_zone }}/fullchain.pem
+  notify: Restart httpd
+
+- name: Copy httpd.conf
+  template:
+    src: httpd.conf.j2
+    dest: /etc/httpd.conf
+    owner: root
+    group: wheel
+    mode: 0644
+  notify: Restart httpd
+
+- name: Enable and start httpd
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+
+- name: Schedule certbot cron job
+  cron:
+    name: certbot
+    minute: "32"
+    hour: "10"
+    job: /usr/local/bin/certbot renew --webroot -w /var/www/html --quiet --post-hook "rcctl restart httpd"
