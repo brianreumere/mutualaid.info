@@ -21,8 +21,7 @@ defaultContentLanguage = "en"
     emailAddress = "brian@mutualaid.info"
     gitHubUsername = "brianreumere"
     twitterHandle = "brianreumere"
-
-    [param.indieWeb.location]
-      city = "test"
-      region = "test"
-      country = "US"
+    showLocation = false
+    city = "test"
+    region = "test"
+    country = "US"
