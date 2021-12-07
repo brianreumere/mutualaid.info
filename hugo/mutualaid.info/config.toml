@@ -9,19 +9,20 @@ defaultContentLanguage = "en"
 
 [params]
   siteHeaderText = "mutualaid.info"
+  siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) 🐡 by [CR Servers](https://www.crservers.com/green-hosting.html) 🌱."
 
-  footerContent = """\
-Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme.  
-Hosted on [OpenBSD](https://www.openbsd.org/) 🐡 by [CR Servers](https://www.crservers.com/green-hosting.html) 🌱.
-
-🏴"""
-
-  emailAddress = "brian@mutualaid.info"
-  twitterHandle = "brianreumere"
-  gitHubUsername = "brianreumere"
+  showHcard = true
+  footerSeparator = "<hr>"
 
   [params.indieWeb]
+    avatar = "images/avatar.jpg"
+    fullName = "brian"
+    nickname = "brianreumere"
     emailAddress = "brian@mutualaid.info"
     gitHubUsername = "brianreumere"
     twitterHandle = "brianreumere"
-    country = "US"
+
+    [param.indieWeb.location]
+      city = "test"
+      region = "test"
+      country = "US"
