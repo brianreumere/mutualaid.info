@@ -25,3 +25,8 @@ theme = "plague"
     gitHubUsername = "brianreumere"
     twitterHandle = "brianreumere"
     showLocation = false
+
+    [params.indieWeb.social]
+      email = "brian@mutualaid.info"
+      github = "brianreumere"
+      twitter = "brianreumere"

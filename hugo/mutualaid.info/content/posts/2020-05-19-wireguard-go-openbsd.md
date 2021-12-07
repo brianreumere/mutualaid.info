@@ -3,7 +3,7 @@ title: "Routing some local hosts over a WireGuard VPN on an OpenBSD router"
 draft: false
 ---
 
-> WireGuard kernel support on OpenBSD is coming (hopefully) soon! It's not in the `-current` branch or snapshots quite yet. [The repository where it's being worked on is here](https://git.zx2c4.com/wireguard-openbsd/) and patches have been submitted by the developers to the `tech@` mailing list. Once kernel support is in the `-current` branch of OpenBSD, I'll try to publish an updated post using the kernel support instead of `wireguard-go`.
+{{< callout >}}WireGuard kernel support on OpenBSD is coming (hopefully) soon! It's not in the `-current` branch or snapshots quite yet. [The repository where it's being worked on is here](https://git.zx2c4.com/wireguard-openbsd/) and patches have been submitted by the developers to the `tech@` mailing list. Once kernel support is in the `-current` branch of OpenBSD, I'll try to publish an updated post using the kernel support instead of `wireguard-go`.{{< /callout >}}
 
 I was inspired to write this by a friend who wanted to automatically tunnel traffic from specific devices on their local network over a WireGuard VPN. A few other resources were helpful in getting up to speed on WireGuard and OpenBSD routing:
 
@@ -123,7 +123,7 @@ subnet 10.0.1.0 netmask 255.255.255.0 {
 
 ## Running as a non-root user
 
-> This is optional!
+{{< callout >}}This is optional!{{< /callout >}}
 
 [WireGuard merged a patch in 2019 to support running as a non-root user](https://lists.zx2c4.com/pipermail/wireguard/2019-July/004308.html) if you set the MTU on the `tun` interface instead of relying on the WireGuard daemon to do it. Unfortunately even with this patch, you still need to change the group ID (giving the group the daemon runs as `rw` permissions) on the `tun` device file in `/dev` for it to work. My knowledge of Go is extremely limited, but I think this is because the [`OpenFile` function](https://golang.org/pkg/os/#OpenFile) is called with `O_RDWR`, meaning it tries to open the file in read/write access mode. [You can see this on line 125 of `tun_openbsd.go`](https://git.zx2c4.com/wireguard-go/tree/tun/tun_openbsd.go?h=v0.0.20190908#n125) (this link points to the version of the file that corresponds with the version of the package available for OpenBSD 6.6, but the line is the same in more recent versions).
 
@@ -156,4 +156,4 @@ rcctl restart wireguard_go
 
 ## Thanks!
 
-Thanks for reading. This was a fun exercise in learning about WireGuard and OpenBSD routing for me and I hope it's helpful for someone else. [If you have any issues or questions feel free to contact me](/contact). Stay tuned for an updated post using the OpenBSD kernel support when it's available.
+Thanks for reading. This was a fun exercise in learning about WireGuard and OpenBSD routing for me and I hope it's helpful for someone else. If you have any issues or questions feel free to contact me. Stay tuned for an updated post using the OpenBSD kernel support when it's available.
