@@ -29,6 +29,8 @@ It's TBD how I'll support webmentions (I'd like to self-host something). These a
 
 TBD how to render them. I would like to avoid Javascript but rebuilding the Hugo site on a schedule seems gross too...
 
+I'm also wary of privacy and consent concerns. See [The Indieweb privacy challenge (Webmentions, silo backfeeds, and the GDPR)](https://sebastiangreger.net/2018/05/indieweb-privacy-challenge-webmentions-backfeeds-gdpr/) and [this Twitter thread that has stuck with me](https://twitter.com/redlightvoices/status/1021747354398076928)
+
 ### IndieAuth
 
 I'm not sure if I need this or would use it, so it's lower priority. Or maybe it's needed for Webmentions?

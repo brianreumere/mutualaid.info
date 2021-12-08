@@ -1,5 +1,3 @@
-[the dispossessed](https://libcom.org/library/dispossessed-ursula-le-guin)  
-[earthseed](https://godischange.org/the-book-of-the-living/)  
-[mutual aid](http://www.gutenberg.org/cache/epub/4341/pg4341-images.html)  
-
-welcome.
+---
+---
+<img alt="Joey from the movie Hackers, hacking the Gibson" style="display:block;margin-left:auto;margin-right:auto;" src="images/joey.jpg">

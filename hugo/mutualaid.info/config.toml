@@ -7,13 +7,16 @@ theme = "plague"
 [frontmatter]
   date = [':filename', ':default']
 
+[markup.goldmark.renderer]
+  unsafe= true
+
 [params]
   siteHeaderText = "mutualaid.info"
   siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) 🐡 by [CR Servers](https://www.crservers.com/green-hosting.html) 🌱."
 
   showHcard = true
 
-  [params.indieWeb]
+  [params.hcard]
     avatar = "images/avatar.jpg"
     fullName = "brian"
     pronouns = ['he', 'him', 'his']
