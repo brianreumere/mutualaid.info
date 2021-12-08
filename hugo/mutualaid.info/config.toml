@@ -14,6 +14,8 @@ theme = "plague"
   siteHeaderText = "mutualaid.info"
   siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) 🐡 by [CR Servers](https://www.crservers.com/green-hosting.html) 🌱."
 
+  custom_css = [ "css/custom.css" ]
+
   showHcard = true
 
   [params.hcard]
