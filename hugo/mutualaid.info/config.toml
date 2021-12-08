@@ -21,12 +21,10 @@ theme = "plague"
     city = "test"
     region = "test"
     country = "US"
-    emailAddress = "brian@mutualaid.info"
-    gitHubUsername = "brianreumere"
-    twitterHandle = "brianreumere"
     showLocation = false
 
-    [params.indieWeb.social]
-      email = "brian@mutualaid.info"
-      github = "brianreumere"
-      twitter = "brianreumere"
+    social = [
+      { platform = "email", identity = "brian@mutualaid.info" },
+      { platform = "github", identity = "brianreumere" },
+      { platform = "twitter", identity = "brianreumere" }
+    ]
