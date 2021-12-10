@@ -29,7 +29,7 @@ theme = "plague"
     showLocation = false
 
     social = [
-      { platform = "email", identity = "brian@mutualaid.info" },
-      { platform = "github", identity = "brianreumere" },
-      { platform = "twitter", identity = "brianreumere" }
+      { platform = "email", identity = "brian@mutualaid.info", url_pattern = "mailto:%s" },
+      { platform = "github", identity = "brianreumere", url_pattern = "https://github.com/%s" },
+      { platform = "twitter", identity = "brianreumere", url_pattern = "https://twitter.com/%s" }
     ]
