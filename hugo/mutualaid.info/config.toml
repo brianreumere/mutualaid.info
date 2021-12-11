@@ -16,8 +16,6 @@ theme = "plague"
 
   colors = "hackers"
 
-  showHcard = true
-
   [params.hcard]
     avatar = "images/avatar.jpg"
     fullName = "brian"
