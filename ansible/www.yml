@@ -3,6 +3,7 @@
   become: yes
   vars:
     www_dns_zone: mutualaid.info
+    redirect_dns_zone: htpkbs.com
     admin_email_address: brian@mutualaid.info
   roles:
     - hugo
