@@ -9,14 +9,13 @@ server "www.{{ www_dns_zone }}" {
 server "www.{{ redirect_dns_zone }}" {
         listen on 0.0.0.0 port 80
         block return 301 "https://{{ redirect_dns_zone }}$REQUEST_URI"
-
 }
 
 server "www.{{ redirect_dns_zone }}" {
         listen on 0.0.0.0 tls port 443
         tls {
-                certificate "/etc/letsencrypt/live/{{ redirect_dns_zone }}/fullchain.pem"
-                key "/etc/letsencrypt/live/{{ redirect_dns_zone }}/privkey.pem"
+                certificate "/etc/letsencrypt/live/{{ www_dns_zone }}/fullchain.pem"
+                key "/etc/letsencrypt/live/{{ www_dns_zone }}/privkey.pem"
                 ciphers "ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES256:ECDH+AES128:!aNULL:!SHA1:!AESCCM"
                 protocols "tlsv1.2,tlsv1.3"
         }
@@ -44,10 +43,7 @@ server "{{ redirect_dns_zone }}" {
                 ciphers "ECDH+AESGCM:ECDH+CHACHA20:ECDH+AES256:ECDH+AES128:!aNULL:!SHA1:!AESCCM"
                 protocols "tlsv1.2,tlsv1.3"
         }
-        block return 301 "https://{{ www_dns_zone }}$REQUEST_URI"
-        location match "/(.*)" {
-                request rewrite "/htpkbs"
-        }
+        block return 301 "https://{{ www_dns_zone }}/htpkbs"
 }
 
 server "{{ www_dns_zone }}" {

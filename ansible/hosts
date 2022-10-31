@@ -1,2 +1,2 @@
 [www]
-mutualaid.info ansible_user=brian
+mutualaid.info ansible_user=brian ansible_become_method=doas
