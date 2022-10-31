@@ -28,6 +28,8 @@ theme = "plague"
 
     social = [
       { platform = "email", identity = "brian@mutualaid.info", url_pattern = "mailto:%s" },
+      { platform = "matrix", identity = "@brian:legends.im", url_pattern = "https://matrix.to/#/%s" },
       { platform = "github", identity = "brianreumere", url_pattern = "https://github.com/%s" },
-      { platform = "twitter", identity = "brianreumere", url_pattern = "https://twitter.com/%s" }
+      { platform = "twitter", identity = "brianreumere", url_pattern = "https://twitter.com/%s" },
+      { platform = "mastodon", identity = "brianreumere", url_pattern = "https://indieweb.social/@%s" }
     ]
