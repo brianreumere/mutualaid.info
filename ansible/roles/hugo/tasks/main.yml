@@ -16,7 +16,7 @@
     state: present
 
 - name: Issue certificate
-  shell: /usr/local/bin/certbot certonly -d {{ www_dns_zone }} -d www.{{ www_dns_zone }} -d {{ redirect_dns_zone }} -d www.{{ redirect_dns_zone }} --standalone --non-interactive --agree-tos -m {{ admin_email_address }}
+  shell: /usr/local/bin/certbot certonly -d {{ www_dns_zone }} -d www.{{ www_dns_zone }} -d {{ redirect_dns_zone }} -d www.{{ redirect_dns_zone }} -d {{ at_name }} --standalone --non-interactive --agree-tos -m {{ admin_email_address }}
   args:
     creates: /etc/letsencrypt/live/{{ www_dns_zone }}/fullchain.pem
   notify: Restart httpd
