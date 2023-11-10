@@ -2,18 +2,22 @@ baseURL = "https://mutualaid.info"
 languageCode = "en-us"
 defaultContentLanguage = "en"
 title = "mutualaid.info"
-theme = "plague"
 
 [module]
-[[module.imports]]
-  disable = false
-  ignoreConfig = true
-  ignoreImports = true
-  path = 'github.com/brianreumere/data-brokers'
-  [[module.imports.mounts]]
-    includeFiles = '*.yaml'
-    source = 'data'
-    target = 'data/databrokers'
+  [[module.imports]]
+    disable = false
+    ignoreConfig = false
+    ignoreImports = true
+    path = 'github.com/brianreumere/plague' # theme
+  [[module.imports]]
+    disable = false
+    ignoreConfig = true
+    ignoreImports = true
+    path = 'github.com/brianreumere/data-brokers'
+    [[module.imports.mounts]]
+      includeFiles = '*.yaml'
+      source = 'data'
+      target = 'data/databrokers'
 
 [frontmatter]
   date = [':filename', ':default']
