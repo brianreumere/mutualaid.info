@@ -4,6 +4,17 @@ defaultContentLanguage = "en"
 title = "mutualaid.info"
 theme = "plague"
 
+[module]
+[[module.imports]]
+  disable = false
+  ignoreConfig = true
+  ignoreImports = true
+  path = 'github.com/brianreumere/data-brokers'
+  [[module.imports.mounts]]
+    includeFiles = '*.yaml'
+    source = 'data'
+    target = 'data/databrokers'
+
 [frontmatter]
   date = [':filename', ':default']
 
@@ -30,6 +41,6 @@ theme = "plague"
       { platform = "email", identity = "brian@mutualaid.info", url_pattern = "mailto:%s" },
       { platform = "matrix", identity = "@brian:legends.im", url_pattern = "https://matrix.to/#/%s" },
       { platform = "github", identity = "brianreumere", url_pattern = "https://github.com/%s" },
-      { platform = "twitter", identity = "brianreumere", url_pattern = "https://twitter.com/%s" },
+      { platform = "bluesky", identity = "brian.mutualaid.info", url_pattern = "https://bsky.app/profile/%s" },
       { platform = "mastodon", identity = "brianreumere", url_pattern = "https://indieweb.social/@%s" }
     ]

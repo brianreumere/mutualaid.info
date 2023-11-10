@@ -1,0 +1,20 @@
+{{ define "main" }}
+{{ range $.Site.Data.databrokers }}
+{{ range . }}
+<div class="databroker">
+    <b>{{ index .names 0 }}</b><br />
+    <a href="{{ .url }}" target="_blank">Search</a><br />
+{{ if isset . "removalUrl" }}
+    <a href="{{ .removalUrl }}" target="_blank">Opt out</a><br />
+{{ end }}
+    Process: {{ .process }}<br />
+    Help links:<br />
+{{ range .helpLinks }}
+{{ . }}<br />
+{{ end }}
+    Opt out working: {{ .status.working }}<br />
+<br />
+</div>
+{{ end }}
+{{ end }}
+{{ end }}
