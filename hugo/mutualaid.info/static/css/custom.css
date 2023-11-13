@@ -1,3 +1,36 @@
-:root {
-    --main-color: #000000;
+div.databroker {
+    margin-top: 10px;
+}
+
+a.data-broker-header {
+    text-decoration: none;
+}
+
+a.data-broker {
+    display: inline-block;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: inherit;
+    border-radius: 4px;
+    outline: none;
+    transition: 0.3s;
+}
+
+a.data-broker-search {
+    color: #ffffff;
+    background-color: #32816e;
+}
+
+a.data-broker-opt-out {
+    color: #ffffff;
+    background-color: #ad4543;
+}
+
+.data-broker-opt-out-status {
+    font-size: 14px;
+    display: inline-block;
+    padding: 2px 4px;
+    text-align: center;
+    border-radius: 4px;
+    color: #ffffff;
 }

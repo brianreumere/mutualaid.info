@@ -18,6 +18,11 @@ title = "mutualaid.info"
       includeFiles = '*.yaml'
       source = 'data'
       target = 'data/databrokers'
+    [[module.imports.mounts]]
+      inlcudeFiles = '*.yaml'
+      source = 'joins'
+      target = 'data/databrokerjoins'
+
 
 [frontmatter]
   date = [':filename', ':default']
@@ -30,6 +35,7 @@ title = "mutualaid.info"
   siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) by [OpenBSD Amsterdam](https://openbsd.amsterdam/) 🐡."
 
   colors = "hackers"
+  customStyleSheet = "css/custom.css"
 
   [params.hcard]
     avatar = "images/avatar.jpg"

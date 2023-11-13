@@ -1,4 +1,4 @@
 ---
-layout: data-brokers
+layout: databrokers
 title: data brokers
 ---

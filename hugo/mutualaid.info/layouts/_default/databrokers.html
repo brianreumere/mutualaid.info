@@ -1,0 +1,64 @@
+{{- define "main" -}}
+{{- $fronts := $.Site.Data.databrokerjoins.fronts -}}
+{{- $similar := $.Site.Data.databrokerjoins.similar -}}
+                <h1>Data brokers</h1>
+                    <p>This is a comprehensive list of data brokers, sourced from the <a href="https://github.com/brianreumere/data-brokers" target="_blank">data-brokers repo on GitHub</a>. See the full post (link TBD) for context. <strong>It is highly recommended to use at least a private or incognito browser window when visiting any of the links below</strong>. A VPN (<a href="https://protonvpn.com/" target="_blank">ProtonVPN</a> is a good free option) or <a href="https://www.torproject.org/download/" target="_blank">Tor Browser</a> is even better (though you may face more captchas than you would otherwise).</p>
+{{- range $k, $v := $.Site.Data.databrokers -}}
+{{- range $v -}}
+<hr />
+                <div class="databroker">
+                    <h2 id="{{ $k }}">{{ index .names 0 }} <a href="#{{ $k }}" class="data-broker-header">#</a></h2>
+                    <p>
+{{- if isset . "status" -}}
+    {{- $statusAsOf := time.AsTime .status.asOf -}}
+    {{- if eq true .status.working -}}
+                        As of {{ time.Format "January 2006" $statusAsOf }} the opt out process is working.
+    {{- else if eq false .status.working -}}
+                        As of {{ time.Format "January 2006" $statusAsOf }} the opt out process is broken.
+        {{- if isset .status "workaround" }}
+                        {{ .status.workaround }}
+        {{- else }}
+                        There is no known workaround.
+        {{- end -}}
+    {{- end -}}
+{{- else -}}
+                        The functionality of the opt out process is currently unknown.
+{{- end -}}
+                    </p>
+                    <p>
+{{- if isset . "process" -}}
+    {{- if isset . "status" -}}{{ if eq false .status.working -}}<s>{{- end -}}{{- end -}}
+    {{- if eq "opt-out-search" .process -}}
+                        To opt out, use the <a href="{{ .removalUrl }}" class="data-broker data-broker-opt-out" target="_blank" ref="nofollow noopener noreferrer">Opt out search</a> directly. For reference, this data broker's main site is <code>{{ .url }}</code>.
+    {{- else if eq "search-first" .process -}}
+                        To opt out, <a href="{{ .url }}" class="data-broker data-broker-search" target="_blank" ref="nofollow noopener noreferrer">Search {{ index .names 0 }}</a> for a result and then <a href="{{ .removalUrl }}" class="data-broker data-broker-opt-out" target="_blank" ref="nofollow noopener noreferrer">Opt out</a>.
+    {{- else if eq "control" .process -}}
+                        To opt out, <a href="{{ .url }}" class="data-broker data-broker-search" target="_blank" ref="nofollow noopener noreferrer">Search {{ index .names 0 }}</a> and then control or manage the data (if found).
+    {{- end -}}
+    {{- if isset . "status" -}}{{ if eq false .status.working -}}</s>{{- end -}}{{- end -}}
+{{- end -}}
+                    </p>
+                    <p>
+{{- range .helpLinks -}}
+                        <a href="{{ .url }}" target="_blank" ref="nofollow noopener noreferrer">Get opt-out help from {{ .site }}</a>.
+{{- end -}}
+                    </p>
+{{- if isset $fronts $k -}}
+    {{- $frontsList := index $fronts $k -}}
+                    <p>
+                        {{ index .names 0 }} has the following fronts: {{ delimit $frontsList ", " }}
+                    </p>
+{{- end -}}
+{{- range $similar -}}
+    {{- if in . $k -}}
+        {{- $selfSlice := slice $k -}}
+        {{- $similarSites := complement $selfSlice . -}}
+                    <p> 
+                        Similar to: {{ delimit $similarSites ", " }}
+                    </p>
+    {{- end -}}
+{{- end -}}
+                </div>
+{{- end -}}
+{{- end -}}
+{{- end -}}
