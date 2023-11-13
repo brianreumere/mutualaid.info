@@ -49,4 +49,4 @@
     name: certbot
     minute: "32"
     hour: "10"
-    job: /usr/local/bin/certbot renew --webroot -w /var/www/html --quiet --post-hook "rcctl restart httpd"
+    job: /usr/local/bin/certbot renew --webroot -w /var/www/htdocs/hugo --quiet --post-hook "rcctl restart httpd"
