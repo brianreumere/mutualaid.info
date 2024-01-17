@@ -1,0 +1,8 @@
+"Name","URL","Removal URL","Process"
+{{- $fronts := $.Site.Data.databrokerjoins.fronts -}}
+{{- $similar := $.Site.Data.databrokerjoins.similar -}}
+{{- range $k, $v := $.Site.Data.databrokers -}}
+{{- range $v }}
+"{{ index .names 0 }}","{{ .url }}","{{ .removalUrl }}","{{ .process }}"
+{{- end -}}
+{{- end -}}

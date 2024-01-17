@@ -30,6 +30,12 @@ title = "mutualaid.info"
 [markup.goldmark.renderer]
   unsafe= true
 
+[outputFormats]
+  [outputFormats.databrokerscsv]
+    baseName = 'databrokers'
+    isPlainText = true
+    mediaType = 'text/csv'
+
 [params]
   siteHeaderText = "mutualaid.info"
   siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) by [OpenBSD Amsterdam](https://openbsd.amsterdam/) 🐡."
