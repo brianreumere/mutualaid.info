@@ -1,6 +1,6 @@
 module github.com/brianreumere/mutualaid.info/hugo/mutualaid.info
 
-go 1.21.4
+go 1.21
 
 require (
 	github.com/brianreumere/data-brokers v0.0.0-20231115002448-4ce3d4b1997c // indirect

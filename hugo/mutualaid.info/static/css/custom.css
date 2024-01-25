@@ -1,3 +1,12 @@
+img#joey {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 18px;
+}
+
 div.databroker {
     margin-top: 10px;
 }
