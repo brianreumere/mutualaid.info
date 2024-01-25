@@ -40,7 +40,7 @@ title = "mutualaid.info"
   siteHeaderText = "mutualaid.info"
   siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) by [OpenBSD Amsterdam](https://openbsd.amsterdam/) 🐡."
 
-  colors = "hackers"
+  colors = "gibson"
   customStyleSheet = "css/custom.css"
 
   [params.hcard]
@@ -55,7 +55,7 @@ title = "mutualaid.info"
 
     social = [
       { platform = "email", identity = "brian@mutualaid.info", url_pattern = "mailto:%s" },
-      { platform = "matrix", identity = "@brian:legends.im", url_pattern = "https://matrix.to/#/%s" },
+      { platform = "matrix", identity = "@brian:mutualaid.info", url_pattern = "https://matrix.to/#/%s" },
       { platform = "github", identity = "brianreumere", url_pattern = "https://github.com/%s" },
       { platform = "bluesky", identity = "brian.mutualaid.info", url_pattern = "https://bsky.app/profile/%s" },
       { platform = "mastodon", identity = "brianreumere", url_pattern = "https://indieweb.social/@%s" }
