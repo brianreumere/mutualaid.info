@@ -44,7 +44,7 @@ The `route -T 0 -n get default` command ensures that traffic to the WireGuard VP
 
 Save the file and then set the proper permissions and bring up the new interface:
 
-```
+```sh
 chmod 640 /etc/hostname.wg2
 chown root:wheel /etc/hostname.wg2
 sh /etc/netstart wg2

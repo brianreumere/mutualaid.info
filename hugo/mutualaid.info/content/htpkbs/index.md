@@ -7,7 +7,7 @@ menu:
     weight: 2
 ---
 
-I've designed a couple of mechanical keyboard PCBs (printed circuit boards) that are open source. The design files (for [KiCad](https://www.kicad.org/)), bills of materials, documentation, etc. are [on the htpkbs GitHub](https://github.com/htpkbs/) {{< fa "github" >}}.
+I've designed a couple of mechanical keyboard PCBs (printed circuit boards) that are open source. The design files (for [KiCad](https://www.kicad.org/)), bills of materials, documentation, etc. are [on the htpkbs GitHub](https://github.com/htpkbs/) {{< icon "github" >}}.
 
 ## pin-check
 
