@@ -17,7 +17,7 @@
                     {{ .Content }}
 {{- range $k, $v := $.Site.Data.databrokers -}}
 {{- range $v -}}
-                    <hr />
+                    <hr>
                     <div class="databroker">
                         <h2 id="{{ $k }}">{{ index .names 0 }} <a href="#{{ $k }}" class="data-broker-header">#</a></h2>
                         <p>
@@ -44,24 +44,25 @@
     {{- if isset . "process" -}}
         {{- if isset . "status" -}}{{ if eq false .status.working -}}<s>{{- end -}}{{- end -}}
         {{- if eq "opt-out-search" .process -}}
-                            To opt out, use the <a href="{{ .removalUrl }}" class="data-broker data-broker-opt-out" target="_blank" ref="nofollow noopener noreferrer">Opt out search</a> directly. For reference, this data broker's main site is <code>{{ .url }}</code>.
+                            To opt out, use the <a href="{{ .removalUrl }}" class="data-broker data-broker-opt-out" target="_blank" rel="nofollow noopener noreferrer">Opt out search</a> directly. For reference, this data broker's main site is <code>{{ .url }}</code>.
         {{- else if eq "search-first" .process -}}
-                            To opt out, <a href="{{ .url }}" class="data-broker data-broker-search" target="_blank" ref="nofollow noopener noreferrer">Search {{ index .names 0 }}</a> for a result and then <a href="{{ .removalUrl }}" class="data-broker data-broker-opt-out" target="_blank" ref="nofollow noopener noreferrer">Opt out</a>.
+                            To opt out, <a href="{{ .url }}" class="data-broker data-broker-search" target="_blank" rel="nofollow noopener noreferrer">Search {{ index .names 0 }}</a> for a result and then <a href="{{ .removalUrl }}" class="data-broker data-broker-opt-out" target="_blank" rel="nofollow noopener noreferrer">Opt out</a>.
         {{- else if eq "control" .process -}}
-                            To opt out, <a href="{{ .url }}" class="data-broker data-broker-search" target="_blank" ref="nofollow noopener noreferrer">Search {{ index .names 0 }}</a> and then control or manage the data (if found).
+                            To opt out, <a href="{{ .url }}" class="data-broker data-broker-search" target="_blank" rel="nofollow noopener noreferrer">Search {{ index .names 0 }}</a> and then control or manage the data (if found).
         {{- end -}}
         {{- if isset . "status" -}}{{ if eq false .status.working -}}</s>{{- end -}}{{- end -}}
     {{- end -}}
                         </p>
                         <p>
     {{- range .helpLinks -}}
-                            <a href="{{ .url }}" target="_blank" ref="nofollow noopener noreferrer">Get opt-out help from {{ .site }}</a>.
+                            <a href="{{ .url }}" target="_blank" rel="nofollow noopener noreferrer">Get opt-out help from {{ .site }}</a>.
     {{- end -}}
                         </p>
     {{- range .notes -}}
                         <h3>Notes</h3>
                         <p>
-                            {{ time.Format "January 02, 2006" .date }}: {{ .note | markdownify }}
+                            <h4>{{ time.Format "January 02, 2006" .date }}</h4>
+                            {{ .note | markdownify }}
                         </p>
     {{- end -}}
     {{- if isset $fronts $k -}}

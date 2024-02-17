@@ -32,6 +32,8 @@ github.com/brianreumere/data-brokers v0.0.0-20231114235723-3dcf8c50dee0 h1:Uyy19
 github.com/brianreumere/data-brokers v0.0.0-20231114235723-3dcf8c50dee0/go.mod h1:0qtytIgk7DrytoPvXhv6NAu0oGL321q4DE5Y3s/4UoE=
 github.com/brianreumere/data-brokers v0.0.0-20231115002448-4ce3d4b1997c h1:NzqQ0wqVGbrvkIxriqVNs6PimLY2Nmp9K4xBkukE+A0=
 github.com/brianreumere/data-brokers v0.0.0-20231115002448-4ce3d4b1997c/go.mod h1:0qtytIgk7DrytoPvXhv6NAu0oGL321q4DE5Y3s/4UoE=
+github.com/brianreumere/data-brokers v0.0.0-20240126044224-b5ed2b0d4e0f h1:vg2K7+1zybPjcl1UWZBRtE0wzkuX5Zxa+igjt4aCT/U=
+github.com/brianreumere/data-brokers v0.0.0-20240126044224-b5ed2b0d4e0f/go.mod h1:0qtytIgk7DrytoPvXhv6NAu0oGL321q4DE5Y3s/4UoE=
 github.com/brianreumere/plague v0.0.0-20231110165828-6d36fdeb5ef4 h1:q5xP4YNGaUmFaz4ry9rmZJnzjWa9GG1MnhArWyhIQSg=
 github.com/brianreumere/plague v0.0.0-20231110165828-6d36fdeb5ef4/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
 github.com/brianreumere/plague v0.0.0-20231112211842-f502e6419bca h1:sVaZauQayadz+VwI2V3WPtm72W9aGRQH6mQu1d+6Ido=
@@ -44,3 +46,5 @@ github.com/brianreumere/plague v0.2.0 h1:AbXALgpd+DLh9XoSvh4Q5lgItcvqhgkElHhIBGp
 github.com/brianreumere/plague v0.2.0/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
 github.com/brianreumere/plague v0.2.1-0.20240125145047-110bf684ca93 h1:toyH19IERAkskHicVj6hsHah4KYwju6LWsJzjJUt2TM=
 github.com/brianreumere/plague v0.2.1-0.20240125145047-110bf684ca93/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.3.3 h1:ap7ZC1YT4DN3I8z7smNPBsruVtJcJjue/wr/mXb6PM8=
+github.com/brianreumere/plague v0.3.3/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=

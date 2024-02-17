@@ -1,8 +1,19 @@
-"Name","URL","Removal URL","Process"
+"Name","URL","Removal URL","Process","Front for"
 {{- $fronts := $.Site.Data.databrokerjoins.fronts -}}
+{{- $frontMappings := dict -}}
+{{- range $site, $frontsForSite := $fronts -}}
+    {{- range $frontsForSite -}}
+        {{- $frontMappings = merge $frontMappings (dict . $site) -}}
+    {{- end -}}
+{{- end -}}
 {{- $similar := $.Site.Data.databrokerjoins.similar -}}
 {{- range $k, $v := $.Site.Data.databrokers -}}
 {{- range $v }}
-"{{ index .names 0 }}","{{ .url }}","{{ .removalUrl }}","{{ .process }}"
+"{{ index .names 0 }}","{{ .url }}","{{ .removalUrl }}","{{ .process }}",
+{{- if isset $frontMappings $k -}}
+    "{{- index $frontMappings $k -}}"
+{{- else -}}
+    "N/A"
+{{- end -}}
 {{- end -}}
 {{- end -}}
