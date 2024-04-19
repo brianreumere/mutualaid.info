@@ -1,0 +1,198 @@
+---
+# ==============
+# LANGUAGE ORDER
+# ==============
+# If the -l option is used, only include titles with the following languages.
+# Comment out languages you don't want. Order is important.
+language order:
+- English
+
+# ============
+# REGION ORDER
+# ============
+# Only include titles with the following regions. Comment out the regions you
+# don't want. Order is important.
+region order:
+- USA
+- World
+- Canada
+- Europe
+- UK
+- Ireland
+- Australia
+- New Zealand
+- Japan
+- Asia
+- Singapore
+- Thailand
+- Spain
+- Mexico
+- Argentina
+- Latin America
+- Brazil
+- Portugal
+- France
+- Belgium
+- Netherlands
+- Germany
+- Austria
+- Italy
+- Switzerland
+- Hong Kong
+- China
+- Taiwan
+- Korea
+- Russia
+- Ukraine
+- Estonia
+- Poland
+- Latvia
+- Lithuania
+- Denmark
+- Norway
+- Sweden
+- Scandinavia
+- Finland
+- Iceland
+- Hungary
+- Czech
+- Greece
+- Macedonia
+- India
+- South Africa
+- Israel
+- Slovakia
+- Turkey
+- Croatia
+- Slovenia
+- United Arab Emirates
+- Bulgaria
+- Romania
+- Albania
+- Serbia
+- Indonesia
+- Unknown
+
+# ==================
+# LOCALIZATION ORDER
+# ==================
+# If the -n option is used, use local names where available for titles with the
+# following languages. Comment out languages you don't want. Order is important.
+# If all languages are commented out and -n is used, the language order is used
+# instead.
+localization order:
+
+# ===========
+# VIDEO ORDER
+# ===========
+# Priority for titles with a video tag in their name. Do not comment out any
+# lines.
+video order:
+- NTSC
+- PAL
+- PAL 60Hz
+- MPAL
+- SECAM
+
+# ============================
+# LIST NAMES PREFIX AND SUFFIX
+# ============================
+# If the --listnames option is used, you can optionally add a prefix and
+# suffix to each title.
+#
+# If you start a prefix with http://, https://, or ftp://, each line in the
+# list will be URL encoded.
+#
+# The text must be inside double quotes. You must escape other double quotes
+# and backslashes inside the quotes like so: \", \\
+list prefix:
+# - "This text will be at the start of each line"
+
+list suffix:
+# - "This text will be at the end of each line"
+
+# ====================================
+# GLOBAL EXCLUDE AND INCLUDE OVERRIDES
+# ====================================
+# Override Retool and force exclude or include specific titles by adding your own
+# text to match against. Items in the list are case sensitive. See the
+# documentation for more information, and pay particular attention to how system
+# overrides interact with global overrides.
+#
+# The formatting is as follows:
+#
+# * Plain text indicates a partial string match.
+# * A prefix of / indicates a regular expression match.
+# * A prefix of | indicates a full string match.
+# * Additionally, wrap a string in <> to also remove any match's related clones.
+#
+# The text must be inside double quotes. You must escape double quotes and
+# backslashes like so: \", \\
+#
+# Comment out lines you don't want.
+exclude:
+# Atari 2600
+- "|4 Game in One (Europe) (Bit Corporation)"  # Not found on ScreenScraper, not clear which version of this game it even is, and probably a clone
+- "|Berzerk (World) (Enhanced Edition)"
+- "|Birthday Mania (USA) (Robert A. Tokar)"  # Weird happy birthday thing, only 10 ever released, not worth including
+- "|MagiCard (USA)"  # This is just a programming tool, no need to include
+- "|Morse Code Tutor (USA)"  # Kind of neat, but not a released game and no good metadata from ScreenScraper
+- "|Mr. Run and Jump (World)"
+- "|Vogel Flieh (Europe)"  # Not actually in English, so exclude manually
+# Atari 7800
+- "|32 in 1 (Australia)"  # Mostly games released elsewhere, no good metadata from ScreenScraper
+# ColecoVision
+# Game Boy
+# Game Boy Advance
+- "|Pocket Monsters Diamond - Pocket Monsters Pearl - Manaphy Present Campaign Senyou Cartridge (Japan) (En)"  # Only released in Japan, no good metadata from ScreenScraper
+- "|Glucoboy (Australia)"  # Glucose monitor for children
+# Game Boy Color
+- "|Moorhuhn 3 - ...Es Gibt Huhn! (Europe) (En,Fr,De,Es,It)"  # Only released in Europe
+- "|Ninja JaJaMaru - The Great World Adventure DX (USA, Europe) (Ninja JaJaMaru Retro Collection) (Switch)"  # Aftermarket title, currently in pre-order, no good metadata from ScreenScraper
+- "|Trip World DX (USA)"
+# Megadrive/Genesis
+- "|Fantasy Zone (World) (Mega Drive Mini 2, Genesis Mini 2)"  # Not clear if English, no good metadata from ScreenScraper
+- "|Spatter (USA, Europe) (Mega Drive Mini 2, Genesis Mini 2)"  # Not clear if English, no good metadata from ScreenScraper
+- "|Star Mobile (USA, Europe) (Mega Drive Mini 2, Genesis Mini 2)"  # Not clear if English, no good metadata from ScreenScraper
+- "|Super Locomotive (World) (Mega Drive Mini 2, Genesis Mini 2)"  # Not clear if English, no good metadata from ScreenScraper
+- "|VS Puyo Puyo Sun (USA, Europe) (Mega Drive Mini 2, Genesis Mini 2)"  # Not clear if English, no good metadata from ScreenScraper
+# N64
+- "|EEPROM & SRAM Erase Program (USA) (v1.2) (LodgeNet)"
+# NES
+- "|Rockman 2 (Taiwan) (En) (Rockman 123)"  # Dupe of Mega Man
+- "|Rockman III (Taiwan) (En) (Rockman 123)"  # Dupe of Mega Man
+- "|Rockman IV (Taiwan) (En) (Rockman 123)"  # Dupe of Mega Man
+- "|Rockman V (Taiwan) (En) (Rockman 123)"  # Dupe of Mega Man
+- "|Rockman VI (Taiwan) (En) (Rockman 123)"  # Dupe of Mega Man
+# Neo-Geo Pocket Color
+# Sega 32X
+# SNES
+- "|Super Nintendo Campus Challenge 1992 (Japan) (En) (Competition Cart)"  # No good metadata from ScreenScraper, not really a full-fledged game
+- "|Super Famicom Aging Program Ver. 1.00 (Japan) (En)"  # Stress test program, not a game
+- "|Super NES Control Deck Tester (Japan) (En) (Rev 1)"  # Not a game
+- "|SNSP Aging Ver 1.02 (Japan) (En)"  # Also probably not a game
+# VirtualBoy
+
+include:
+- "|Super Mario World (USA)"
+
+# ============
+# POST FILTERS
+# ============
+# After Retool has finished processing, remove all titles except the ones that
+# match the text listed here. Items in the list are case sensitive. See the
+# documentation for more information.
+#
+# The formatting is as follows:
+#
+# * Plain text indicates a partial string match.
+# * A prefix of / indicates a regular expression match.
+# * A prefix of | indicates a full string match.
+#
+# The text must be inside double quotes. You must escape double quotes and
+# backslashes like so: \", \\
+#
+# Comment out lines you don't want
+filters:
+# - "/.*?\(Virtual*"
+# - "|My favorite title (Japan)"
