@@ -34,6 +34,8 @@ github.com/brianreumere/data-brokers v0.0.0-20231115002448-4ce3d4b1997c h1:NzqQ0
 github.com/brianreumere/data-brokers v0.0.0-20231115002448-4ce3d4b1997c/go.mod h1:0qtytIgk7DrytoPvXhv6NAu0oGL321q4DE5Y3s/4UoE=
 github.com/brianreumere/data-brokers v0.0.0-20240126044224-b5ed2b0d4e0f h1:vg2K7+1zybPjcl1UWZBRtE0wzkuX5Zxa+igjt4aCT/U=
 github.com/brianreumere/data-brokers v0.0.0-20240126044224-b5ed2b0d4e0f/go.mod h1:0qtytIgk7DrytoPvXhv6NAu0oGL321q4DE5Y3s/4UoE=
+github.com/brianreumere/data-brokers v0.0.0-20240217160920-ace98a15e2c3 h1:IJkvddiWQOoCRUkAFFEmhOSQAwpPB2wNe6Vzuw8rr+s=
+github.com/brianreumere/data-brokers v0.0.0-20240217160920-ace98a15e2c3/go.mod h1:0qtytIgk7DrytoPvXhv6NAu0oGL321q4DE5Y3s/4UoE=
 github.com/brianreumere/plague v0.0.0-20231110165828-6d36fdeb5ef4 h1:q5xP4YNGaUmFaz4ry9rmZJnzjWa9GG1MnhArWyhIQSg=
 github.com/brianreumere/plague v0.0.0-20231110165828-6d36fdeb5ef4/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
 github.com/brianreumere/plague v0.0.0-20231112211842-f502e6419bca h1:sVaZauQayadz+VwI2V3WPtm72W9aGRQH6mQu1d+6Ido=
@@ -48,3 +50,13 @@ github.com/brianreumere/plague v0.2.1-0.20240125145047-110bf684ca93 h1:toyH19IER
 github.com/brianreumere/plague v0.2.1-0.20240125145047-110bf684ca93/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
 github.com/brianreumere/plague v0.3.3 h1:ap7ZC1YT4DN3I8z7smNPBsruVtJcJjue/wr/mXb6PM8=
 github.com/brianreumere/plague v0.3.3/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.3.4-0.20240419144539-e89b58a3c874 h1:n3mKh+Iy2N8qmRMkdRSM+iax0cHr1h8BcrckQ+DMhnE=
+github.com/brianreumere/plague v0.3.4-0.20240419144539-e89b58a3c874/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.3.4-0.20240419151537-663dac05b5e3 h1:OHlvgXbONDHGI5xIWX/1IIAfNRX2MSZyGs1q7LxQZbA=
+github.com/brianreumere/plague v0.3.4-0.20240419151537-663dac05b5e3/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.3.4-0.20240419155045-d00dab78528b h1:FOwg0bqeNzTFmduL94CP26t9vnTfbWvOJdcoEPDBedk=
+github.com/brianreumere/plague v0.3.4-0.20240419155045-d00dab78528b/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.3.4-0.20240419160748-4739bdb60036 h1:R2ulCwyvFl4styD7cjCQM3JtoqyQYwzPd9OTHIjbIdU=
+github.com/brianreumere/plague v0.3.4-0.20240419160748-4739bdb60036/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.4.0 h1:PA6ZIrbsnx48UxO7O+A3Kchjow0V8Ezr04KDj5yF2Ek=
+github.com/brianreumere/plague v0.4.0/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=

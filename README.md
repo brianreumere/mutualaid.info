@@ -4,7 +4,7 @@ All configuration and site assets for [https://mutualaid.info](mutualaid.info).
 
 ## Ansible
 
-The `hugo` role configures an OpenBSD server to serve a static site from `/var/www/htdocs/hugo` with `httpd`. The `www.yml` playbook executes the role.
+The `hugo` role configures an OpenBSD server to serve a static site from `/var/www/htdocs/hugo` with `relayd` and `httpd`. The `www.yml` playbook executes the role.
 
 ```
 ansible -m raw -a "doas pkg_add python3" -i hosts www

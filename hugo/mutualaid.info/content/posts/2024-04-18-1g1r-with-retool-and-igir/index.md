@@ -26,7 +26,7 @@ brew install python@3.12 nodejs@20
 
 ## ROMs and DAT files
 
-The first step of this process is to get a complete set of ROMs and a DAT/data file. DAT files are XML-formatted files that ends in `.dat` and include data (like game name, description, filename, and checksum) about each ROM in a set.
+The first step of this process is to get a complete set of ROMs and a DAT/data file. DAT files are XML-formatted files that end in `.dat` and include data (like game name, description, filename, and checksum) about each ROM in a set.
 
 You can download a ROM set from [https://archive.org/details/ni-romsets](https://archive.org/details/ni-romsets) (this is the best source I've found; let me know if you know of a better, more definitive, or more up-to-date source for No-Intro sets). For the examples in this post, I'll assume you downloaded the `Atari – 2600`, `Nintendo - Super Nintendo Entertainment System`, and `Sega - Master System - Mark III` sets and extracted them to a new directory `${roms_dir}/Sets/No-Intro`.
 

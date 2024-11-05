@@ -30,6 +30,12 @@ title = "mutualaid.info"
 [markup.goldmark.renderer]
   unsafe= true
 
+[outputs]
+  home = ['html']
+  section = ['html', 'rss']
+  taxonomy = ['html']
+  term = ['html']
+
 [outputFormats]
   [outputFormats.databrokerscsv]
     baseName = 'databrokers'
@@ -42,6 +48,10 @@ title = "mutualaid.info"
 
   colors = "gibson"
   customStyleSheet = "css/custom.css"
+
+  [params.author]
+    email = 'brian@mutualaid.info'
+    name = 'Brian Reumere'
 
   [params.hcard]
     avatar = "images/avatar.jpg"
