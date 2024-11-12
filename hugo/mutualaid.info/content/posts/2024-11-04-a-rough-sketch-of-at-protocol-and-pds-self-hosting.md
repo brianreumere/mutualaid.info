@@ -109,7 +109,7 @@ This returns the following JSON:
 }
 ```
 
-The `records` array contains all of the posts I've made on WhiteWind. I can similary find all of the posts I've made on Bluesky by changing the `collection` query parameter value to `com.bsky.feed.post`.
+The `records` array contains all of the posts I've made on WhiteWind. I can similary find all of the posts I've made on Bluesky by changing the `collection` query parameter value to `app.bsky.feed.post`.
 
 These collection names are [NSIDs](https://atproto.com/guides/glossary#nsid-namespaced-id) (or Namespace IDs), and are identifiers for Lexicon schemas (which are formatted as reverse DNS names). There is some technical background of why Bluesky developed Lexicon in the post [Why not RDF in the AT Protocol?](https://www.pfrazee.com/blog/why-not-rdf) by Paul Frazee. In short, each collection type (as well as XRPC API endpoints and event stream messages, but I'm not going to get into those here) is defined by a Lexicon schema (the [Lexicon spec is here](https://atproto.com/specs/lexicon)) and applications that use the atproto network can create arbitrary new collections with schemas that fit their intended use. [Schemas aren't necessarily available via an API](https://atproto.com/guides/lexicon#schema-distribution) but may be published somewhere. For example, [various Bluesky lexicons are here](https://github.com/bluesky-social/atproto/tree/main/lexicons).
 

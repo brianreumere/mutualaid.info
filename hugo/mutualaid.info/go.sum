@@ -60,3 +60,5 @@ github.com/brianreumere/plague v0.3.4-0.20240419160748-4739bdb60036 h1:R2ulCwyvF
 github.com/brianreumere/plague v0.3.4-0.20240419160748-4739bdb60036/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
 github.com/brianreumere/plague v0.4.0 h1:PA6ZIrbsnx48UxO7O+A3Kchjow0V8Ezr04KDj5yF2Ek=
 github.com/brianreumere/plague v0.4.0/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=
+github.com/brianreumere/plague v0.4.1-0.20241105191446-0dc8eb5b7a92 h1:kpMm9hzx6jZ0T22hO+z90DuK63A89ZfaNIbJ4RirKis=
+github.com/brianreumere/plague v0.4.1-0.20241105191446-0dc8eb5b7a92/go.mod h1:FjXJXbBLMg28mwVEVwSF+bLtEPI8RzHb/DMZ5BCSUBc=

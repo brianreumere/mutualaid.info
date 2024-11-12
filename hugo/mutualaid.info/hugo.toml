@@ -42,6 +42,14 @@ title = "mutualaid.info"
     isPlainText = true
     mediaType = 'text/csv'
 
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    lineNos = false
+    noClasses = false
+    tabWidth = 4
+
 [params]
   siteHeaderText = "mutualaid.info"
   siteFooterText = "Powered by [Hugo](https://gohugo.io/) and the [plague](https://github.com/brianreumere/plague) theme. Hosted on [OpenBSD](https://www.openbsd.org/) by [OpenBSD Amsterdam](https://openbsd.amsterdam/) 🐡."
