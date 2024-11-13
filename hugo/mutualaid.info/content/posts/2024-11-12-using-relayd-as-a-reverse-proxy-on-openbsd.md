@@ -5,7 +5,7 @@ draft: false
 
 I host different services (primarily [httpd(8)](https://man.openbsd.org/httpd.8) and [Dendrite](https://matrix-org.github.io/dendrite/)) and domains (including this site) on a server from [OpenBSD Amsterdam](https://openbsd.amsterdam/), and I recently added [atproto PDS self-hosting](https://mutualaid.cloud) to the mix. [relayd(8)](https://man.openbsd.org/relayd.8) handles all of the requests to the server, terminates TLS when needed, and routes requests between clients and their ultimate destinations.
 
-I could use something more common reverse proxying like [nginx](https://nginx.org/en/) (or something trendier like [Caddy](https://caddyserver.com/)), but I generally like OpenBSD's base system services because the documentation is excellent and the services are always incredibly stable (and they're usually just fun and a pleasure to work with).
+I could use a more common reverse proxy like [nginx](https://nginx.org/en/) (or something trendier like [Caddy](https://caddyserver.com/)), but I generally like OpenBSD's base system services because the documentation is excellent and the services are always incredibly stable (and they're usually just fun and a pleasure to work with).
 
 When it comes to relayd, I've always been significantly more confused by its configuration than most of the other services that I use. This might be owed to relayd's flexibility and wide range of functionality (IP and application layer logic, TLS termination, health-checks, load balancing, etc.), or the infrequency with which I change its configuration.
 
