@@ -1,25 +1,26 @@
 ---
 title: "Using relayd as a reverse proxy on OpenBSD"
+description: "Wrapping my head around relayd configuration before adding a self-hosted PDS reverse proxy."
 draft: false
 ---
 
-I host different services (primarily [httpd(8)](https://man.openbsd.org/httpd.8) and [Dendrite](https://matrix-org.github.io/dendrite/)) and domains (including this site) on a server from [OpenBSD Amsterdam](https://openbsd.amsterdam/), and I recently added [atproto PDS self-hosting](https://mutualaid.cloud) to the mix. [relayd(8)](https://man.openbsd.org/relayd.8) handles all of the requests to the server, terminates TLS when needed, and routes requests between clients and their ultimate destinations.
+I host different services (primarily [httpd(8)](https://man.openbsd.org/httpd.8) and [Dendrite](https://matrix-org.github.io/dendrite/)) and domains (including this site) on a server from [OpenBSD Amsterdam](https://openbsd.amsterdam/), and I recently added [atproto PDS self-hosting](/posts/a-rough-sketch-of-at-protocol-and-pds-self-hosting/) to the mix. [relayd(8)](https://man.openbsd.org/relayd.8) handles all of the requests to the server, terminates TLS when needed, and routes requests between clients and their ultimate destinations.
 
 I could use a more common reverse proxy like [nginx](https://nginx.org/en/) (or something trendier like [Caddy](https://caddyserver.com/)), but I generally like OpenBSD's base system services because the documentation is excellent and the services are always incredibly stable (and they're usually just fun and a pleasure to work with).
 
 When it comes to relayd, I've always been significantly more confused by its configuration than most of the other services that I use. This might be owed to relayd's flexibility and wide range of functionality (IP and application layer logic, TLS termination, health-checks, load balancing, etc.), or the infrequency with which I change its configuration.
 
-This post is a simple, concise explanation of the relayd features that I use. The examples are a bit contrived, but will demonstrate how the different components of relayd's (and httpd's) configuration work together to:
+This post is a simple, concise explanation of the relayd features that I use. The examples are a bit contrived, but will demonstrate how the different components of relayd and httpd work together to:
 
 * Redirect HTTP requests to HTTPS
 * Redirect subdomains to the apex domain (e.g., `www.example.com` to `example.com`)
 * Route requests for certain HTTP paths to different services
-* Route requests for certain domain names to httpd or different services
+* Route requests for certain subdomain to different services
 * Add custom headers to HTTP responses
 
 ## Key terms
 
-Most of these are summaries of definitions from the [relayd.conf(5)](https://man.openbsd.org/relayd.conf.5) man page. If you want to read about any of the key terms in more detail, it's worth checking out. This post will **not** cover other components of relayd like redirections (layer 3 or IP-based forwarding), global configuration settings like logging, health-checks, load balancing, or non-HTTP protocols (which you can also read about in the man page).
+Most of these are summaries of definitions from the [relayd.conf(5)](https://man.openbsd.org/relayd.conf.5) man page. If you want to read about any of the key terms in more detail, it's worth checking out. This post will **not** cover other components of relayd like redirections (layer 3 or IP-based forwarding), global configuration settings (like logging), health-checks, load balancing, or non-HTTP protocols (all of which you can also read about in the man page).
 
 ### Tables
 
@@ -29,7 +30,7 @@ Tables are lists of hosts (similar to [pf tables](https://www.openbsd.org/faq/pf
 
 Relays operate on layer 7 (the application layer) of the [OSI model](https://en.wikipedia.org/wiki/OSI_model) (which has its issues, but is a useful shorthand) and allow for advanced functionality like TLS termination and redirection based on HTTP headers and paths. Relays are what allow you to use relayd as an HTTP reverse proxy or do more advanced application layer request routing.
 
-The relay configuration defines a port to listen and accepts client connections on. The `forward to` directive of a relay determines which table to forward connections to.
+The relay configuration defines a port to listen and accepts client connections on. The `forward to` directive of a relay determines which table of hosts and which port to forward connections to.
 
 ### Protocols
 
@@ -114,6 +115,8 @@ Say you have a service listening on port 8000 of localhost. Maybe it's a Node.js
 table <service1> { 127.0.0.1 }
 ```
 
+For these examples we could technically use the same table (since the only host we're forwarding connections to is `127.0.0.1`).
+
 Edit the `encrypted` protocol:
 
 ```
@@ -194,4 +197,4 @@ This adds the commonly recommended `X-Frame-Options` header to all HTTP response
 
 ## Final notes
 
-This was a really helpful post for me to research and write as I make some minor updates to my `relayd.conf` to forward requests to a [self-hosted atproto PDS](/posts/a-rough-sketch-of-at-protocol-and-pds-self-hosting/). Hopefully it's helpful for others as well! Look for a post in the near future about PDS self-hosting on OpenBSD.
+This was a really helpful post for me to research and write as I make some minor updates to my `relayd.conf` to forward requests to a [self-hosted atproto PDS](https://mutualaid.cloud). Hopefully it's helpful for others as well! Look for a post in the near future about PDS self-hosting on OpenBSD.
